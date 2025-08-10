@@ -1,7 +1,16 @@
 <?php
 
-it('returns a successful response', function () {
-    $response = $this->get('/');
+namespace Tests\Feature;
 
-    $response->assertOk();
-});
+use Tests\TestCase;
+
+class ExampleTest extends TestCase
+{
+    public function test_home_page_returns_successful_response(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk();
+        $response->assertSee('Welcome to');
+    }
+}

@@ -13,13 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create default test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Create default test user (optional)
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
 
-        // Seed clinic pharmacy data
-        $this->call(ClinicPharmacySeeder::class);
+        // Add your seeders here
+        // $this->call(YourSeeder::class);
     }
 }

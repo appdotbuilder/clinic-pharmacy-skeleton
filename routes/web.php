@@ -1,24 +1,41 @@
 <?php
 
+use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/health-check', function () {
-    return response()->json([
-        'status' => 'ok',
-        'timestamp' => now()->toISOString(),
-    ]);
-})->name('health-check');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
+// Home page
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return view('welcome');
 })->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-});
+// Example route with parameters
+Route::get('/user/{id}', function ($id) {
+    return view('user.profile', ['userId' => $id]);
+})->name('user.profile');
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+// Example route with optional parameters
+Route::get('/posts/{category?}', function ($category = 'general') {
+    return view('posts.index', ['category' => $category]);
+})->name('posts.index');
+
+// Example resource controller routes
+Route::resource('example', ExampleController::class);
+
+// Example route group with middleware
+Route::middleware(['web'])->group(function () {
+    // Add your authenticated routes here
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+});
